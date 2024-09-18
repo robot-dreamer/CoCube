@@ -48,7 +48,17 @@ body {
 }
 
 .publication-title {
-    font-family: 'Google Sans', sans-serif;
+    /* font-family: 'Google Sans', sans-serif; */
+    /* font-family: 'Arial', sans-serif; */
+}
+
+.publication-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 2.5rem; /* 可根据需要调整字体大小 */
+  font-weight: 700;  /* 粗体 700 */
+  font-style: italic; /* 设置为斜体 */
+  color: #333333; /* 字体颜色 */
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 可选的文本阴影 */
 }
 
 .publication-authors {
@@ -80,6 +90,7 @@ body {
 
 .author-block {
   display: inline-block;
+  margin-right: 0.5rem; /* 设置作者之间的右边距 */
 }
 
 .publication-banner img {
@@ -154,4 +165,43 @@ body {
 }
 #interpolation-image-wrapper img {
   border-radius: 5px;
+}
+
+.teaser h2.subtitle {
+  font-family: 'Lato', sans-serif; /* 设置字体为 Lato */
+  font-size: 1.5rem; /* 根据需要调整字体大小 */
+  /* line-height: 1; 增加行间距 */
+  font-weight: 400; /* 正常字体粗细 */
+  color: #333333; /* 字体颜色 */
+  font-style: italic; /* 设置为斜体 */
+  font-stretch: Light;
+  text-align: justify; /* 文字两端对齐 */
+}
+
+.title.is-3 {
+  font-family: 'Lato', sans-serif; /* 使用 Lato 字体 */
+  font-weight: 700; /* 设置字体粗细，400 为常规粗细 */
+  font-size: 2.3rem; /* 根据需要调整字体大小 */
+  color: #333333; /* 设置字体颜色 */
+}
+
+.teaser strong {
+  font-weight: 700; /* 设置 strong 标签为粗体 */
+  font-style: italic; /* 可选：使 strong 标签的字体为斜体 */
+}
+
+.teaser p {
+  font-family: 'Lato', sans-serif; /* 设置字体为 Lato */
+  font-size: 1.2rem; /* 适合正文大小的字体 */
+  color: #666666; /* 可以选择更柔和的灰色 */
+  
+}
+
+.content p {
+  font-family: 'Lato', sans-serif; /* 设置字体为 Lato */
+  font-size: 1.4rem; /* 调整字体大小 */
+  line-height: 1.5; /* 增加行间距 */
+  text-align: justify; /* 文字两端对齐 */
+  margin-bottom: 1.5rem; /* 增加段落之间的距离 */
+  font-weight: 400; /* 正常字体粗细 */
 }

@@ -22,7 +22,10 @@
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,400;1,700&display=swap" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet"> -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro|Open+Sans|Lato"
         rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
@@ -88,7 +91,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">CoCube : A Tabletop Modular Multi-Robot Platform for Education and Research</h1>
+          <h1 class="title is-1 publication-title">CoCube: A Tabletop Modular Multi-Robot Platform for Education and Research</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://github.com/robot-dreamer">Shuai Liang</a><sup>1,2</sup>,</span>
@@ -108,15 +111,15 @@
             </span>
             <span class="author-block">
               Zemin Lin</a><sup>4</sup>,
-            </span>
+            </span><br> <!-- 手动添加换行 -->
             <span class="author-block">
               Bin Zhao</a><sup>2</sup>,
             </span>
             <span class="author-block">
-              Zhigang Wang</a><sup>2,*</sup>
+              Zhigang Wang</a><sup>2,*</sup>,
             </span>
             <span class="author-block">
-              Zhinan Zhang</a><sup>4,*</sup>
+              Zhinan Zhang</a><sup>4,*</sup>,
             </span>
             <span class="author-block">
               Xuelong Li</a><sup>5</sup>
@@ -128,11 +131,29 @@
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Fudan University</span>
             <span class="author-block"><sup>2</sup>Shanghai Artifcial Intelligence Laboratory</span>
-            <span class="author-block"><sup>3</sup>MicroBlocks</span>
+            <span class="author-block"><sup>3</sup>MicroBlocks</span><br> <!-- 手动添加换行 -->
             <span class="author-block"><sup>4</sup>Shanghai Jiao Tong University</span>
-            <span class="author-block"><sup>5</sup>Institute of Artificial Intelligence, China Telecom Corp Ltd</span>
+            <span class="author-block"><sup>5</sup>Institute of Artificial Intelligence, China Telecom Corp Ltd</span><br> <!-- 手动添加换行 -->
             <span class="author-block"><sup>*</sup>Corresponding author</span>
           </div>
+          <div> 
+            <br>
+          </div>
+
+          <!-- 作者单位 -->
+        <section class="hero teaser">
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <!-- 替换 video 标签为 img 标签 -->
+              <img id="CoCube-Affiliation" src="./static/images/CoCube Affiliation.png" alt="Affiliation" height="100%">
+              <!-- <h2 class="subtitle has-text-centered">
+                CoCube Platform: Hardware includes CoCube robots, CoModules for extended functionality, 
+                CoMaps for localization and CoTags for interaction. Software is developed on the MicroBlocks platform and supports multiple advanced APIs.
+              </h2> -->
+            </div>
+          </div>
+        </section>
+
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -189,7 +210,6 @@
                   <span>Data</span>
                   </a> -->
             </div>
-
           </div>
         </div>
       </div>
@@ -198,23 +218,9 @@
 </section>
 
 
-<!-- 显示单位 -->
+
+<!-- 
 <section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- 替换 video 标签为 img 标签 -->
-      <img id="CoCube-Affiliation" src="./static/images/CoCube Affiliation.png" alt="Affiliation" height="100%">
-      <!-- <h2 class="subtitle has-text-centered">
-        CoCube Platform: Hardware includes CoCube robots, CoModules for extended functionality, 
-        CoMaps for localization and CoTags for interaction. Software is developed on the MicroBlocks platform and supports multiple advanced APIs.
-      </h2> -->
-    </div>
-  </div>
-</section>
-
-
-
-<!-- <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
@@ -230,17 +236,16 @@
   </div>
 </section> -->
 
-<!-- 显示首图 -->
+<!-- first page -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- 替换 video 标签为 img 标签 -->
-      <img id="CoCube-Face-Img" src="./static/images/CoCube Face.png" alt="Test Image" height="100%">
-      <p><strong>CoCube Platform:</strong> Hardware includes CoCube robots, CoModules for extended functionality,
+      <img id="CoCube-Face-Img" src="./static/images/CoCube Face.png" alt="Haed Image" height="100%">
+      <h2 class="subtitle">
+        <strong>CoCube Platform:</strong> Hardware includes CoCube robots, CoModules for extended functionality,
         CoMaps for localization and CoTags for interaction. Software is developed on the MicroBlocks platform and
         supports multiple advanced APIs.
+      </h2>
       </p>
-    </div>
   </div>
 </section>
 
@@ -334,9 +339,10 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
+          <!-- <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=428929070&bvid=BV1PG411h7MB&cid=789072577&p=1" scrolling="yes" border="0" frameborder="no" framespacing="0" allowfullscreen="false"></iframe> -->
           <!-- <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0" -->
-          <iframe src=""
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="1120" height="720" src="https://www.youtube.com/embed/fEPicBSYeNQ?si=DlFU9tpSk55RvHp6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
         </div>
       </div>
     </div>
@@ -368,63 +374,30 @@
 
       <!-- Matting. -->
       <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
+        <div class="content">
+          <h2 class="title is-3">Matting</h2>
+          <p>
+            As a byproduct of our method, we can also solve the matting problem by ignoring
+            samples that fall outside of a bounding box during rendering.
+          </p>
+          <video id="matting-video" controls playsinline height="100%">
+            <source src="./static/videos/matting.mp4"
+                    type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
     <!--/ Matting. -->
-
-    
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
+
 
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
-      comming soon
+      comming soon ……
       <!-- @article{park2021nerfies,
   author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
   title     = {Nerfies: Deformable Neural Radiance Fields},
