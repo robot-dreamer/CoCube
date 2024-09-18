@@ -205,3 +205,25 @@ body {
   margin-bottom: 1.5rem; /* 增加段落之间的距离 */
   font-weight: 400; /* 正常字体粗细 */
 }
+
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/static/font/Lato/Lato-LightItalic.ttf') format('truetype'); /* 使用 .ttf 格式 */
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/static/font/Lato/Lato-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/static/font/Lato/Lato-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
