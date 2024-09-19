@@ -183,6 +183,7 @@ body {
   font-weight: 700; /* 设置字体粗细，400 为常规粗细 */
   font-size: 2.3rem; /* 根据需要调整字体大小 */
   color: #333333; /* 设置字体颜色 */
+  font-style: italic; /* 可选：使 strong 标签的字体为斜体 */
 }
 
 .title.is-4 {
@@ -190,6 +191,7 @@ body {
   font-weight: 700; /* 设置字体粗细，400 为常规粗细 */
   font-size: 1.6rem; /* 根据需要调整字体大小 */
   color: #333333; /* 设置字体颜色 */
+  font-style: italic; /* 可选：使 strong 标签的字体为斜体 */
 }
 
 .teaser strong {
@@ -201,7 +203,6 @@ body {
   font-family: 'Lato', sans-serif; /* 设置字体为 Lato */
   font-size: 1.2rem; /* 适合正文大小的字体 */
   color: #666666; /* 可以选择更柔和的灰色 */
-  
 }
 
 .content p {
