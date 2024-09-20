@@ -204,6 +204,14 @@ body {
   font-style: italic; /* 可选：使 strong 标签的字体为斜体 */
 }
 
+.title.is-5 {
+  font-family: 'Lato', sans-serif; /* 使用 Lato 字体 */
+  font-weight: 700; /* 设置字体粗细，400 为常规粗细 */
+  font-size: 1.3rem; /* 根据需要调整字体大小 */
+  color: #d6780d; /* 设置字体颜色 */
+  font-style: italic; /* 可选：使 strong 标签的字体为斜体 */
+}
+
 .teaser strong {
   font-weight: 700; /* 设置 strong 标签为粗体 */
   font-style: italic; /* 可选：使 strong 标签的字体为斜体 */
