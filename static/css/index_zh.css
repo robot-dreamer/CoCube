@@ -1,0 +1,144 @@
+/* 引入中文字体 Noto Sans SC */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+
+/* 设置中文页面的全局字体 */
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 16px; /* 可以根据需要调整字体大小 */
+  line-height: 1.6; /* 增加行高，改善可读性 */
+  color: #333333; /* 字体颜色 */
+}
+
+/* 导航栏的样式 */
+.navbar-item {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 400; /* 正常字体粗细 */
+}
+
+/* 页脚中的图标链接样式 */
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+/* 链接块的样式 */
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* 特殊段落样式 */
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+/* teaser 标题样式 */
+.teaser h2.subtitle {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #333333;
+  text-align: justify;
+}
+
+/* teaser 内容样式 */
+.teaser h2.content {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #333333;
+  text-align: justify;
+}
+
+/* 文章标题的样式 */
+.publication-title {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-style: normal; /* 中文字体默认不设置斜体 */
+  color: #333333;
+}
+
+/* 文章作者的样式 */
+.publication-authors {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.2rem;
+}
+
+/* 文章其他样式 */
+.publication-venue {
+  color: #555;
+  font-weight: bold;
+}
+
+.publication-awards {
+  color: #ff3860;
+  font-weight: bolder;
+}
+
+.publication-authors a {
+  color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+  text-decoration: underline;
+}
+
+/* 插图样式 */
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* 视频的嵌入样式 */
+.publication-video {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 10px !important;
+}
+
+.publication-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 段落样式 */
+.content p {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: justify;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+/* strong 标签样式 */
+.teaser strong {
+  font-weight: 700;
+}
+
+/* teaser 段落样式 */
+.teaser p {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.2rem;
+  color: #666666;
+}
+
+/* 自定义按钮样式 */
+.button {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  background-color: #3273dc;
+}
+
+.button:hover {
+  background-color: #2752a3;
+}
