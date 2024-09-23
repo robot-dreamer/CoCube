@@ -41,7 +41,7 @@ body {
   font-weight: 400;
   color: #333333;
   text-align: justify;
-  font-style: normal; /* 确保不使用斜体 */
+  font-style: normal;
 }
 
 /* teaser 内容样式 */
@@ -51,6 +51,7 @@ body {
   font-weight: 300;
   color: #333333;
   text-align: justify;
+  font-style: normal;
 }
 
 /* 文章标题的样式 */
