@@ -7,6 +7,7 @@ body {
   font-size: 16px; /* 可以根据需要调整字体大小 */
   line-height: 1.6; /* 增加行高，改善可读性 */
   color: #333333; /* 字体颜色 */
+  font-style: normal;    /* 确保不使用斜体 */
 }
 
 /* 导航栏的样式 */
@@ -40,6 +41,7 @@ body {
   font-weight: 400;
   color: #333333;
   text-align: justify;
+  font-style: normal; /* 确保不使用斜体 */
 }
 
 /* teaser 内容样式 */
@@ -117,11 +119,13 @@ body {
   text-align: justify;
   margin-bottom: 1.5rem;
   font-weight: 400;
+  font-style: normal;
 }
 
 /* strong 标签样式 */
 .teaser strong {
   font-weight: 700;
+  font-style: normal;
 }
 
 /* teaser 段落样式 */
@@ -129,6 +133,7 @@ body {
   font-family: 'Noto Sans SC', sans-serif;
   font-size: 1.2rem;
   color: #666666;
+  font-style: normal;
 }
 
 /* 自定义按钮样式 */
@@ -141,4 +146,28 @@ body {
 
 .button:hover {
   background-color: #2752a3;
+}
+
+.title.is-3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 700; /* 设置字体粗细，400 为常规粗细 */
+    font-size: 2.3rem; /* 根据需要调整字体大小 */
+    color: #333333; /* 设置字体颜色 */
+    font-style: normal; /* 可选：使 strong 标签的字体为斜体 */
+  }
+  
+.title.is-4 {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 700; /* 设置字体粗细，400 为常规粗细 */
+    font-size: 1.5rem; /* 根据需要调整字体大小 */
+    color: #333333; /* 设置字体颜色 */
+    font-style: normal; /* 可选：使 strong 标签的字体为斜体 */
+  }
+  
+.title.is-5 {
+    font-family: 'Noto Sans SC', sans-serif;
+    /* font-weight: 700; 设置字体粗细，400 为常规粗细 */
+    font-size: 1.2rem; /* 根据需要调整字体大小 */
+    color: #d6780d; /* 设置字体颜色 */
+    font-style: normal; /* 可选：使 strong 标签的字体为斜体 */
 }
