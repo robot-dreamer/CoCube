@@ -2,6 +2,15 @@
 <html lang="zh">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJCG217MYQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-CJCG217MYQ');
+  </script>
   <meta charset="utf-8">
   <meta name="description" content="CoCube: A Tabletop Modular Multi-Robot Platform for Education and Research">
   <meta name="keywords" content="CoCube, Multi-Robot, Microblocks">
@@ -292,7 +301,8 @@
           <h2 class="title is-3">摘要</h2>
           <div class="content has-text-justified">
             <p>
-              本研究介绍CoCube，一款用于机器人教育和多机器人算法研究的桌面级模块化机器人平台。CoCube具备低门槛、高上限和宽围墙的特点，提供了灵活性和广泛的适用性。该平台由四个关键部分组成：CoCube机器人，集无线通信、运动感知和交互功能的方块形机器人；CoModules磁吸外接模块，可为机器人拓展丰富的功能；CoMaps，通过普通打印纸上的微点图案为机器人提供高精度定位；以及 CoTags，每个CoTags可对应唯一的一个Index，可用于无屏编程等场景。CoCube软件基于专为物理计算而生的图形化编程语言Microblocks开发，为用户提供了灵活性和易用性，并支持复杂应用的高级API。本研究详细介绍CoCube平台的设计，并展示了其在教育和研究领域的潜力。
+              本研究介绍CoCube，一款用于机器人教育和多机器人算法研究的桌面级模块化机器人平台。CoCube具备低门槛、高上限和宽围墙的特点，提供了灵活性和广泛的适用性。该平台由四个关键部分组成：CoCube机器人，集无线通信、运动感知和交互功能的方块形机器人；CoModules磁吸外接模块，可为机器人拓展丰富的功能；CoMaps，通过普通打印纸上的微点图案为机器人提供高精度定位；以及
+              CoTags，每个CoTags可对应唯一的一个Index，可用于无屏编程等场景。CoCube软件基于专为物理计算而生的图形化编程语言Microblocks开发，为用户提供了灵活性和易用性，并支持复杂应用的高级API。本研究详细介绍CoCube平台的设计，并展示了其在教育和研究领域的潜力。
             </p>
           </div>
         </div>
@@ -599,7 +609,8 @@
               paper, to provide a high-precision, easily deployable localization solution for CoCube robots. Each
               A3-sized CoMap
               can be combined to create larger maps, enabling scalable localization. -->
-              <strong>CoMaps</strong> 使用光学识别（OID）技术，通过在普通纸张上打印编码微点，为CoCube机器人提供高精度、易部署的定位解决方案。每张A3大小的CoMap可以组合成更大的地图，实现可扩展的定位。
+              <strong>CoMaps</strong>
+              使用光学识别（OID）技术，通过在普通纸张上打印编码微点，为CoCube机器人提供高精度、易部署的定位解决方案。每张A3大小的CoMap可以组合成更大的地图，实现可扩展的定位。
             </p>
             <img id="CoCube Robots" src="../static/images/web CoMaps.png" alt="Robots" height="100%">
           </div>
@@ -622,7 +633,8 @@
               flexibility and scalability to support its modular hardware. The system uses MicroBlocks for firmware
               development and block libraries, with communication interfaces for advanced APIs to enable more complex
               tasks -->
-              对于软件架构，CoCube旨在提供用户友好的编程体验，同时保持灵活性和可扩展性，以支持其模块化硬件。该系统使用MicroBlocks进行固件开发和块库，并开发了高级API（Snap!, Python, C++和ROS），以实现更复杂的任务。
+              对于软件架构，CoCube旨在提供用户友好的编程体验，同时保持灵活性和可扩展性，以支持其模块化硬件。该系统使用MicroBlocks进行固件开发和块库，并开发了高级API（Snap!, Python,
+              C++和ROS），以实现更复杂的任务。
             </p>
             <img id="CoCube Microblocks" src="../static/images/CoCube Microblocks.png" alt="Microblocks" height="100%">
           </div>
@@ -640,13 +652,12 @@
           <div class="content has-text-justified">
             <!-- <p>This work was sponsored by Science and Technology Commission of Shanghai Municipality (Project
               No.24DZ2307500) and supported by the Shanghai AI Laboratory. -->
-              <p>本研究由上海市科学技术委员会资助（项目编号24DZ2307500），并得到上海人工智能实验室支持。
+            <p>本研究由上海市科学技术委员会资助（项目编号24DZ2307500），并得到上海人工智能实验室支持。
             </p>
             <p>
               <!-- We extend our heartfelt thanks to John Maloney and the <a
                 href="https://microblocks.fun/about">MicroBlocks team</a> for their substantial support. -->
-                特别感谢John Maloney和<a
-                href="https://microblocks.fun/about">MicroBlocks</a>团队的大力支持。
+              特别感谢John Maloney和<a href="https://microblocks.fun/about">MicroBlocks</a>团队的大力支持。
             </p>
             <p>
               特别感谢<a href="https://blog.csdn.net/ZhangRelay">张瑞雷老师</a>的宝贵指导。
