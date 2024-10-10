@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.slideshow-container {
+  width: 200%;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  max-width: 480px; /* 图片最大宽度 */
+}
+
+.slides {
+  display: flex;
+  height: auto;
+}
+
+.slides img {
+  width: 100%;
+  height: auto;
+}
+
+/* 第一组幻灯片：5张图片 */
+.slideshow-5 .slides {
+  width: 100%; /* 5张图片总宽度 */
+  animation: slide-5 10s infinite;
+}
+
+/* 第二组幻灯片：10张图片 */
+.slideshow-10 .slides {
+  width: 100%; /* 8张图片总宽度 */
+  animation: slide-10 20s infinite; /* 时间更长，适合更多图片 */
+}
+
+/* 第二组幻灯片：8张图片 */
+.slideshow-6 .slides {
+  width: 100%; /* 8张图片总宽度 */
+  animation: slide-6 12s infinite; /* 时间更长，适合更多图片 */
+}
+
+/* 5张图片的滑动动画 */
+/* 5张图片的滑动动画 */
+@keyframes slide-5 {
+  0% { transform: translateX(0); }
+  18% { transform: translateX(0); }
+  20% { transform: translateX(-100%); }
+  38% { transform: translateX(-100%); }
+  40% { transform: translateX(-200%); }
+  58% { transform: translateX(-200%); }
+  60% { transform: translateX(-300%); }
+  78% { transform: translateX(-300%); }
+  80% { transform: translateX(-400%); }
+  98% { transform: translateX(-400%); } 
+  100% { transform: translateX(-400%); } 
+}
+
+
+/* 10张图片的滑动动画 */
+@keyframes slide-10 {
+  0% { transform: translateX(0); }
+  9% { transform: translateX(0); }
+  10% { transform: translateX(-100%); }
+  19% { transform: translateX(-100%); }
+  20% { transform: translateX(-200%); }
+  29% { transform: translateX(-200%); }
+  30% { transform: translateX(-300%); }
+  39% { transform: translateX(-300%); }
+  40% { transform: translateX(-400%); }
+  49% { transform: translateX(-400%); } 
+  50% { transform: translateX(-500%); } 
+  59% { transform: translateX(-500%); }
+  60% { transform: translateX(-600%); }
+  69% { transform: translateX(-600%); }
+  70% { transform: translateX(-700%); }
+  79% { transform: translateX(-700%); }
+  80% { transform: translateX(-800%); }
+  89% { transform: translateX(-800%); }
+  90% { transform: translateX(-900%); } 
+  99% { transform: translateX(-900%); } 
+  100% { transform: translateX(-900%); } 
+}
