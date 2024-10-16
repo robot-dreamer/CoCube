@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CoCube Keyboard Control</title>
+	<link rel="icon" href="../../static/images/CoCube icon.svg">
+	<style>
+		/* 优化标题和按钮的样式 */
+		body {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			background: rgb(214, 214, 214);
+			margin: 0;
+		}
+
+		.header {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.controls {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 15px;
+			/* 控制按钮和状态文本之间的间距 */
+			margin-bottom: 20px;
+		}
+
+		.connect-btn,
+		.disconnect-btn {
+			padding: 10px 20px;
+			font-size: 16px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.disconnect-btn {
+			background-color: #f44336;
+			/* 红色表示断开连接 */
+		}
+
+		.connect-btn:hover,
+		.disconnect-btn:hover {
+			background-color: #45a049;
+			/* 鼠标悬停效果 */
+		}
+
+		.disconnect-btn:hover {
+			background-color: #d32f2f;
+		}
+
+		.status {
+			font-size: 16px;
+			color: #333;
+			font-weight: bold;
+		}
+
+
+		/* Created by Tivotal */
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgb(214, 214, 214);
+		}
+
+		.wrapper .row {
+			width: 100%;
+			height: 60px;
+			margin: 10px 0 0 0;
+		}
+
+		.wrapper .row button {
+			width: 55px;
+			height: 55px;
+			background: rgb(214, 214, 214);
+			outline: none;
+			border: none;
+			box-shadow: 5px 5px 10px #474343, -5px -5px 10px #fff;
+			border-radius: 20%;
+			font-size: 18px;
+			color: #000;
+			margin-left: 5px;
+			cursor: pointer;
+		}
+
+		.wrapper .row button:active {
+			box-shadow: 1px 1px 2px #fff8f8, -1px -1px 2px #474343;
+		}
+
+		.row button.backspace {
+			width: 115px;
+			border-radius: 10px;
+		}
+
+		.row button.tab {
+			width: 85px;
+			border-radius: 10px;
+		}
+
+		.row button.slash {
+			width: 85px;
+			border-radius: 10px;
+		}
+
+		.row button.caps {
+			width: 100px;
+			border-radius: 10px;
+		}
+
+		.row button.enter {
+			width: 135px;
+			border-radius: 10px;
+		}
+
+		.row button.shift {
+			width: 150px;
+			border-radius: 10px;
+		}
+
+		.row button.up {
+			width: 70px;
+			border-radius: 10px;
+		}
+
+		.wrapper .row:nth-child(5) button {
+			width: 70px;
+			border-radius: 10px;
+		}
+
+		.wrapper .row button.space {
+			width: 398px;
+			border-radius: 10px;
+		}
+
+		.wrapper .row button.pressed {
+			box-shadow: inset 1px 1px 3px #474343, inset -1px -1px 3px #fff;
+			background-color: #e0e0e0;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div>
+		<h2>CoCube Keyboard Control</h2>
+	</div>
+	<br>
+	<div class="controls">
+		<button type="button" class="connect-btn" onclick="bleSerial.connect()">Connect</button>
+		<button type="button" class="disconnect-btn" onclick="bleSerial.disconnect()">Disconnect</button>
+
+	</div>
+	<div class="controls">
+		<div id="connectStatus" class="status">Not Connected</div>
+	</div>
+
+
+	<!-- 虚拟键盘界面 -->
+	<div class="wrapper">
+		<div class="row">
+			<button data-key="`">`</button>
+			<button data-key="1">1</button>
+			<button data-key="2">2</button>
+			<button data-key="3">3</button>
+			<button data-key="4">4</button>
+			<button data-key="5">5</button>
+			<button data-key="6">6</button>
+			<button data-key="7">7</button>
+			<button data-key="8">8</button>
+			<button data-key="9">9</button>
+			<button data-key="0">0</button>
+			<button data-key="-">-</button>
+			<button data-key="=">=</button>
+			<button class="backspace" data-key="Backspace">Backspace</button>
+		</div>
+		<div class="row">
+			<button class="tab" data-key="Tab">Tab</button>
+			<button data-key="Q">Q</button>
+			<button data-key="W">W</button>
+			<button data-key="E">E</button>
+			<button data-key="R">R</button>
+			<button data-key="T">T</button>
+			<button data-key="Y">Y</button>
+			<button data-key="U">U</button>
+			<button data-key="I">I</button>
+			<button data-key="O">O</button>
+			<button data-key="P">P</button>
+			<button data-key="[">[</button>
+			<button data-key="]">]</button>
+			<button class="slash" data-key="\\">\\</button>
+		</div>
+		<div class="row">
+			<button class="caps" data-key="CapsLock">Caps lock</button>
+			<button data-key="A">A</button>
+			<button data-key="S">S</button>
+			<button data-key="D">D</button>
+			<button data-key="F">F</button>
+			<button data-key="G">G</button>
+			<button data-key="H">H</button>
+			<button data-key="J">J</button>
+			<button data-key="K">K</button>
+			<button data-key="L">L</button>
+			<button data-key=";">;</button>
+			<button data-key="'">'</button>
+			<button class="enter" data-key="Enter">Enter</button>
+		</div>
+		<div class="row">
+			<button class="shift" data-key="Shift">Shift</button>
+			<button data-key="Z">Z</button>
+			<button data-key="X">X</button>
+			<button data-key="C">C</button>
+			<button data-key="V">V</button>
+			<button data-key="B">B</button>
+			<button data-key="N">N</button>
+			<button data-key="M">M</button>
+			<button data-key=",">,</button>
+			<button data-key=".">.</button>
+			<button data-key="/">/</button>
+			<button class="up" data-key="ArrowUp">↑</button>
+
+		</div>
+		<div class="row">
+			<button data-key="Control">Ctrl</button>
+			<button data-key="Fn">Fn</button>
+			<button data-key="Meta">Win</button>
+			<button data-key="Alt">Alt</button>
+			<button class="space" data-key=" ">Space</button>
+			<button data-key="ArrowLeft">←</button>
+			<button data-key="ArrowDown">↓</button>
+			<button data-key="ArrowRight">→</button>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		const IDE_SERVICE_UUID = 'bb37a001-b922-4018-8e74-e14824b3a638';
+		const IDE_RX_CHAR_UUID = 'bb37a002-b922-4018-8e74-e14824b3a638';
+		const IDE_TX_CHAR_UUID = 'bb37a003-b922-4018-8e74-e14824b3a638';
+		const BLE_PACKET_LEN = 240;
+
+		class BLESerial {
+			constructor() {
+				this.device = undefined;
+				this.service = undefined;
+				this.rx_char = undefined;
+				this.connected = false;
+				this.sendInProgress = false;
+			}
+
+			handle_disconnected(event) {
+				this.rx_char = undefined;
+				this.connected = false;
+				this.sendInProgress = false;
+			}
+
+			handle_read(event) {
+				let data = new Uint8Array(event.target.value.buffer);
+			}
+
+			async connect() {
+				this.device = await navigator.bluetooth.requestDevice({
+					filters: [{ services: [IDE_SERVICE_UUID] }]
+				});
+				this.device.addEventListener('gattserverdisconnected', this.handle_disconnected.bind(this));
+				const server = await this.device.gatt.connect();
+				this.service = await server.getPrimaryService(IDE_SERVICE_UUID);
+				const tx_char = await this.service.getCharacteristic(IDE_TX_CHAR_UUID);
+				this.rx_char = await this.service.getCharacteristic(IDE_RX_CHAR_UUID);
+				await tx_char.startNotifications();
+				tx_char.addEventListener("characteristicvaluechanged", this.handle_read.bind(this));
+				this.connected = true;
+				this.sendInProgress = false;
+				console.log("MicroBlocks BLE connected");
+			}
+
+			disconnect() {
+				if (this.device != undefined) {
+					this.device.gatt.disconnect();
+				}
+			}
+
+			isConnected() {
+				return this.connected;
+			}
+
+			write_data(data) {
+				if (this.rx_char == undefined) {
+					throw TypeError("Not connected");
+				}
+				if (this.sendInProgress) {
+					return 0;
+				}
+				let byteCount = (data.length > BLE_PACKET_LEN) ? BLE_PACKET_LEN : data.length;
+				this.write_loop(data.subarray(0, byteCount));
+				return byteCount;
+			}
+
+			async write_loop(data) {
+				this.sendInProgress = true;
+				try {
+					await this.rx_char.writeValue(data);
+				} catch (error) {
+					console.log(error);
+					this.handle_disconnected();
+				}
+				this.sendInProgress = false;
+				return;
+			}
+		}
+
+		function updateConnectStatus() {
+			var status = (bleSerial.isConnected()) ? "Connected" : "Not Connected";
+			document.getElementById("connectStatus").innerHTML = status;
+		}
+
+		function sendBroadcastMessage(message) {
+			let cmdBytes = new TextEncoder().encode(message);
+			let len = cmdBytes.length + 1;
+			let broadcastMsg = new Uint8Array(5 + len);
+			broadcastMsg.set([0xFB, 0x1B, 0, (len & 255), (len >> 8) & 255]);  // Header for broadcast message
+			broadcastMsg.set(cmdBytes, 5);  // 字符串内容
+			broadcastMsg.set([0xFE], len + 4);  // 结束符
+			bleSerial.write_data(broadcastMsg);  // 发送消息
+		}
+
+		// 修改 updateKeyState 函数以匹配更广泛的按键
+		function updateKeyState(key, pressed) {
+			let keyDiv = document.querySelector(`button[data-key="${key.toUpperCase()}"]`);
+			if (!keyDiv) {
+				// 特殊按键的修正，如空格、Shift等
+				switch (key) {
+					case ' ':
+						keyDiv = document.querySelector('button[data-key=" "]');  // 空格
+						break;
+					case 'Enter':
+						keyDiv = document.querySelector('button[data-key="Enter"]');
+						break;
+					case 'Backspace':
+						keyDiv = document.querySelector('button[data-key="Backspace"]');
+						break;
+					case 'Tab':
+						keyDiv = document.querySelector('button[data-key="Tab"]');
+						break;
+					case 'CapsLock':
+						keyDiv = document.querySelector('button[data-key="CapsLock"]');
+						break;
+					case 'Shift':
+						keyDiv = document.querySelectorAll('button[data-key="Shift"]')[0]; // 处理Shift左右按键
+						break;
+					case 'Control':
+						keyDiv = document.querySelector('button[data-key="Control"]');
+						break;
+					case 'Alt':
+						keyDiv = document.querySelector('button[data-key="Alt"]');
+						break;
+					case '\\':
+						keyDiv = document.querySelector('button[data-key="\\"]');
+						break;
+					case 'ArrowUp':
+						keyDiv = document.querySelector('button[data-key="ArrowUp"]');
+						break;
+					case 'ArrowDown':
+						keyDiv = document.querySelector('button[data-key="ArrowDown"]');
+						break;
+					case 'ArrowLeft':
+						keyDiv = document.querySelector('button[data-key="ArrowLeft"]');
+						break;
+					case 'ArrowRight':
+						keyDiv = document.querySelector('button[data-key="ArrowRight"]');
+						break;
+					// 可根据需要添加更多特殊按键
+				}
+			}
+			if (keyDiv) {
+				if (pressed) {
+					keyDiv.classList.add('pressed');
+				} else {
+					keyDiv.classList.remove('pressed');
+				}
+			}
+		}
+
+		// 键盘按下时触发虚拟按键UI变化
+		document.addEventListener('keydown', function (event) {
+			if (bleSerial.isConnected()) {
+				let key = event.key + '_down';
+				sendBroadcastMessage(key);  // 发送按键消息
+			}
+			updateKeyState(event.key, true);  // 更新虚拟键盘UI状态
+		});
+
+		// 键盘松开时恢复UI状态
+		document.addEventListener('keyup', function (event) {
+			if (bleSerial.isConnected()) {
+				let key = event.key + '_up';
+				sendBroadcastMessage(key);  // 发送松开消息
+			}
+			updateKeyState(event.key, false);  // 恢复虚拟键盘UI状态
+		});
+
+		const bleSerial = new BLESerial();
+		setInterval(updateConnectStatus, 500);
+	</script>
+</body>
+
+</html>
