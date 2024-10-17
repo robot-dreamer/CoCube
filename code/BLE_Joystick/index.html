@@ -9,22 +9,21 @@
 	<link rel="icon" href="../../static/images/CoCube icon.svg">
 	<style>
 		/* 禁用整个网页中所有元素的选择和复制 */
-        * {
-            user-select: none;
-            -webkit-user-select: none; /* 针对 Safari 和 Chrome */
-            -moz-user-select: none; /* 针对 Firefox */
-            -ms-user-select: none; /* 针对 IE/Edge */
-        }
+		* {
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
 
 		body {
 			display: flex;
 			flex-direction: column;
-			/* justify-content: center; */
 			align-items: center;
 			min-height: 100vh;
 			background: rgb(214, 214, 214);
 			margin: 0;
-            overflow: hidden; /* 禁用页面滚动 */
+			overflow: hidden;
 		}
 
 		.header {
@@ -234,6 +233,7 @@
 
 		// 处理鼠标拖动开始事件
 		function handleMouseStart(event) {
+			event.preventDefault();  // 阻止默认事件
 			handleJoystickMove({ clientX: event.clientX, clientY: event.clientY });
 			document.addEventListener("mousemove", handleMouseMove);
 			document.addEventListener("mouseup", handleMouseEnd);
@@ -253,6 +253,7 @@
 
 		// 处理触摸开始事件
 		function handleJoystickStart(event) {
+			event.preventDefault();  // 阻止默认事件
 			handleJoystickMove(event.touches[0]);
 			document.addEventListener("touchmove", handleTouchMove);
 			document.addEventListener("touchend", handleTouchEnd);
@@ -338,7 +339,7 @@
 
 			// 发送左右轮速度 -99, -99
 			sendWheelSpeeds(-99, -99);
-			sendWheelSpeeds(-99, -99);
+			setTimeout(() => sendWheelSpeeds(-99, -99), 100); // 再发送一次以确保机器人停止
 		}
 
 		// 计算角度和距离
