@@ -8,6 +8,14 @@
 	<title>CoCube Virtual Joystick</title>
 	<link rel="icon" href="../../static/images/CoCube icon.svg">
 	<style>
+		/* 禁用整个网页中所有元素的选择和复制 */
+        * {
+            user-select: none;
+            -webkit-user-select: none; /* 针对 Safari 和 Chrome */
+            -moz-user-select: none; /* 针对 Firefox */
+            -ms-user-select: none; /* 针对 IE/Edge */
+        }
+
 		body {
 			display: flex;
 			flex-direction: column;
@@ -252,6 +260,7 @@
 
 		// 处理触摸移动事件
 		function handleTouchMove(event) {
+			event.preventDefault();  // 阻止页面滑动
 			handleJoystickMove(event.touches[0]);
 		}
 
