@@ -1,0 +1,370 @@
+<!-- 参考https://coherent-labs.com/blog/uitutorials/virtual-joystick/ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CoCube Virtual Joystick</title>
+	<link rel="icon" href="./CoCube icon.svg">
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			/* justify-content: center; */
+			align-items: center;
+			min-height: 100vh;
+			background: rgb(214, 214, 214);
+			margin: 0;
+		}
+
+		.header {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.controls {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 15px;
+			/* 控制按钮和状态文本之间的间距 */
+			margin-bottom: 20px;
+		}
+
+		.connect-btn,
+		.disconnect-btn {
+			padding: 10px 20px;
+			font-size: 16px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.disconnect-btn {
+			background-color: #f44336;
+			/* 红色表示断开连接 */
+		}
+
+		.connect-btn:hover,
+		.disconnect-btn:hover {
+			background-color: #45a049;
+			/* 鼠标悬停效果 */
+		}
+
+		.disconnect-btn:hover {
+			background-color: #d32f2f;
+		}
+
+		.status {
+			font-size: 16px;
+			color: #333;
+			font-weight: bold;
+		}
+
+		.joystick {
+			width: 20vmax;
+			height: 20vmax;
+			position: absolute;
+			top: 15vmax;
+			left: 20vmax;
+			background-color: rgba(0, 0, 0, 0.2);
+			border-radius: 50%;
+		}
+
+		.joystick-outline {
+			width: 100%;
+			height: 100%;
+		}
+
+		.joystick-handle-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		.joystick-handle {
+			position: absolute;
+			width: 8vmax;
+			height: 8vmax;
+			border-radius: 50%;
+			background-color: rgba(255, 255, 255, 0.6);
+			top: 50%;
+			left: 50%;
+			margin-left: -4vmax;
+			margin-top: -4vmax;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<h2>CoCube Joystick Control</h2>
+	</div>
+	<div class="controls">
+		<button type="button" class="connect-btn" onclick="bleSerial.connect()">Connect</button>
+		<button type="button" class="disconnect-btn" onclick="bleSerial.disconnect()">Disconnect</button>
+	</div>
+	<div class="controls">
+		<div id="connectStatus" class="status">Not Connected</div>
+	</div>
+
+	<div class="joystick">
+		<svg class="joystick-outline" viewbox="-5 -5 310 310">
+			<path d="M150,0 A150,150 0 1,1 150,300 A150,150 0 1,1 150,0" fill="none" stroke="rgba(255, 255, 255, 0.4)"
+				stroke-width="5" stroke-dasharray="205 30" stroke-dashoffset="221" />
+		</svg>
+		<div class="joystick-handle-container">
+			<div class="joystick-handle"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		const IDE_SERVICE_UUID = 'bb37a001-b922-4018-8e74-e14824b3a638';
+		const IDE_RX_CHAR_UUID = 'bb37a002-b922-4018-8e74-e14824b3a638';
+		const IDE_TX_CHAR_UUID = 'bb37a003-b922-4018-8e74-e14824b3a638';
+		const BLE_PACKET_LEN = 240;
+
+		class BLESerial {
+			constructor() {
+				this.device = undefined;
+				this.service = undefined;
+				this.rx_char = undefined;
+				this.connected = false;
+				this.sendInProgress = false;
+			}
+
+			handle_disconnected(event) {
+				this.rx_char = undefined;
+				this.connected = false;
+				this.sendInProgress = false;
+			}
+
+			handle_read(event) {
+				let data = new Uint8Array(event.target.value.buffer);
+			}
+
+			async connect() {
+				this.device = await navigator.bluetooth.requestDevice({
+					filters: [{ services: [IDE_SERVICE_UUID] }]
+				});
+				this.device.addEventListener('gattserverdisconnected', this.handle_disconnected.bind(this));
+				const server = await this.device.gatt.connect();
+				this.service = await server.getPrimaryService(IDE_SERVICE_UUID);
+				const tx_char = await this.service.getCharacteristic(IDE_TX_CHAR_UUID);
+				this.rx_char = await this.service.getCharacteristic(IDE_RX_CHAR_UUID);
+				await tx_char.startNotifications();
+				tx_char.addEventListener("characteristicvaluechanged", this.handle_read.bind(this));
+				this.connected = true;
+				this.sendInProgress = false;
+				console.log("MicroBlocks BLE connected");
+			}
+
+			disconnect() {
+				if (this.device != undefined) {
+					this.device.gatt.disconnect();
+				}
+			}
+
+			isConnected() {
+				return this.connected;
+			}
+
+			write_data(data) {
+				if (this.rx_char == undefined) {
+					throw TypeError("Not connected");
+				}
+				if (this.sendInProgress) {
+					return 0;
+				}
+				let byteCount = (data.length > BLE_PACKET_LEN) ? BLE_PACKET_LEN : data.length;
+				this.write_loop(data.subarray(0, byteCount));
+				return byteCount;
+			}
+
+			async write_loop(data) {
+				this.sendInProgress = true;
+				try {
+					await this.rx_char.writeValue(data);
+				} catch (error) {
+					console.log(error);
+					this.handle_disconnected();
+				}
+				this.sendInProgress = false;
+				return;
+			}
+		}
+
+		function updateConnectStatus() {
+			var status = (bleSerial.isConnected()) ? "Connected" : "Not Connected";
+			document.getElementById("connectStatus").innerHTML = status;
+		}
+
+		function sendBroadcastMessage(message) {
+			let cmdBytes = new TextEncoder().encode(message);
+			let len = cmdBytes.length + 1;
+			let broadcastMsg = new Uint8Array(5 + len);
+			broadcastMsg.set([0xFB, 0x1B, 0, (len & 255), (len >> 8) & 255]);  // Header for broadcast message
+			broadcastMsg.set(cmdBytes, 5);  // 字符串内容
+			broadcastMsg.set([0xFE], len + 4);  // 结束符
+			bleSerial.write_data(broadcastMsg);  // 发送消息
+		}
+
+
+		const joyStickHandle = document.querySelector(".joystick-handle");
+		const joyStickContainer = document.querySelector(".joystick");
+
+		// Touch events
+		joyStickContainer.addEventListener("touchstart", handleJoystickStart);
+		joyStickContainer.addEventListener("mousedown", handleMouseStart);
+
+		// 处理鼠标拖动开始事件
+		function handleMouseStart(event) {
+			handleJoystickMove({ clientX: event.clientX, clientY: event.clientY });
+			document.addEventListener("mousemove", handleMouseMove);
+			document.addEventListener("mouseup", handleMouseEnd);
+		}
+
+		// 处理鼠标拖动移动事件
+		function handleMouseMove(event) {
+			handleJoystickMove({ clientX: event.clientX, clientY: event.clientY });
+		}
+
+		// 处理鼠标拖动结束事件
+		function handleMouseEnd() {
+			document.removeEventListener("mousemove", handleMouseMove);
+			document.removeEventListener("mouseup", handleMouseEnd);
+			handleJoystickEnd();
+		}
+
+		// 处理触摸开始事件
+		function handleJoystickStart(event) {
+			handleJoystickMove(event.touches[0]);
+			document.addEventListener("touchmove", handleTouchMove);
+			document.addEventListener("touchend", handleTouchEnd);
+		}
+
+		// 处理触摸移动事件
+		function handleTouchMove(event) {
+			handleJoystickMove(event.touches[0]);
+		}
+
+		// 处理触摸结束事件
+		function handleTouchEnd() {
+			document.removeEventListener("touchmove", handleTouchMove);
+			document.removeEventListener("touchend", handleTouchEnd);
+			handleJoystickEnd();
+		}
+
+		// 计算手柄角度和距离
+		function handleJoystickMove(event) {
+			const { angle, distance } = calculateCircleAngleAndDistance(event.clientX, event.clientY);
+			joyStickHandle.style.transform = `translateY(${distance}px)`;
+			joyStickHandle.parentElement.style.transform = `rotate(${angle}deg)`;
+
+			// 计算左右轮速度
+			const speeds = calculateWheelSpeeds(angle, distance);
+
+			// 发送速度消息
+			sendWheelSpeeds(speeds.leftSpeed, speeds.rightSpeed);
+		}
+
+		function calculateWheelSpeeds(angle, distance) {
+			// 最大线速度和角速度
+			const maxLinearSpeed = 50;  // 最大线速度
+			const maxAngularSpeed = 50;  // 最大角速度
+
+			// 计算 X 和 Y 轴投影
+			const projectionX = Math.sin(angle * Math.PI / 180) * distance;
+			const projectionY = -Math.cos(angle * Math.PI / 180) * distance;
+
+			// 根据 Y 轴投影计算线速度（竖直方向）
+			const linearSpeed = (projectionY / (joyStickContainer.clientHeight / 2)) * maxLinearSpeed;
+
+			// 根据 X 轴投影计算角速度（水平方向）
+			const angularSpeed = (projectionX / (joyStickContainer.clientWidth / 2)) * maxAngularSpeed;
+
+			// 根据线速度和角速度计算左右轮速度
+			let leftSpeed = linearSpeed - angularSpeed;
+			let rightSpeed = linearSpeed + angularSpeed;
+
+			// 确保两轮的速度不超过最大值
+			const maxSpeed = 50;  // 左右轮的最大速度限制
+			const maxWheelSpeed = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
+
+			// 如果超过最大速度，通过比例缩放速度
+			if (maxWheelSpeed > maxSpeed) {
+				const scale = maxSpeed / maxWheelSpeed;
+				leftSpeed *= scale;
+				rightSpeed *= scale;
+			}
+
+			// 确保输出为整数
+			return {
+				leftSpeed: Math.round(leftSpeed),
+				rightSpeed: Math.round(rightSpeed)
+			};
+		}
+
+
+		// 发送左右轮速度
+		function sendWheelSpeeds(leftSpeed, rightSpeed) {
+			if (bleSerial.isConnected()) {
+				const message = `call,uuidid,CoCube set wheel,${leftSpeed},${rightSpeed}`;
+				// const message = `${leftSpeed},${rightSpeed}`;
+				sendBroadcastMessage(message);  // 发送左右轮速度消息
+			}
+		}
+
+		// 结束时重置手柄位置
+		function handleJoystickEnd() {
+			joyStickHandle.style.transform = "";
+			joyStickHandle.parentElement.style.transform = "";
+
+			// 发送左右轮速度 -99, -99
+			sendWheelSpeeds(-99, -99);
+			sendWheelSpeeds(-99, -99);
+		}
+
+		// 计算角度和距离
+		function calculateCircleAngleAndDistance(clientX, clientY) {
+			const { x, y, width, height } = joyStickContainer.getBoundingClientRect();
+
+			let distance = Math.sqrt(
+				Math.pow(clientX - (x + width / 2), 2) +
+				Math.pow(clientY - (y + height / 2), 2)
+			);
+
+			distance = clamp(distance, 0, height / 2);
+
+			// 调整角度计算，使 0° 对应向上
+			return {
+				angle: calculateAngle(x + width / 2, y + height / 2, clientX, clientY) - 90,
+				distance,
+			};
+		}
+
+
+		function clamp(value, min, max) {
+			return Math.min(Math.max(value, min), max);
+		}
+
+		function calculateAngle(centerX, centerY, pointX, pointY) {
+			const deltaX = pointX - centerX;
+			const deltaY = pointY - centerY;
+			const angleInRadians = Math.atan2(deltaY, deltaX);
+			let angleInDegrees = (angleInRadians * 180) / Math.PI;
+			return angleInDegrees;
+		}
+
+		const bleSerial = new BLESerial();
+		setInterval(updateConnectStatus, 500);
+	</script>
+</body>
+
+</html>
