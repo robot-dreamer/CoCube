@@ -332,7 +332,7 @@
 		}
 
 		function updateConnectStatus() {
-			var status = (bleSerial.isConnected()) ? "Connected" : "Not Connected";
+			var status = (bleSerial.isConnected()) ? `Connected to: ${bleSerial.device.name}` : "Not Connected";
 			document.getElementById("connectStatus").innerHTML = status;
 		}
 
