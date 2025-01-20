@@ -406,7 +406,7 @@
 		// 键盘按下时触发虚拟按键UI变化
 		document.addEventListener('keydown', function (event) {
 			if (bleSerial.isConnected()) {
-				let key = event.key + '_down';
+				let key = event.key;
 				sendBroadcastMessage(key);  // 发送按键消息
 			}
 			updateKeyState(event.key, true);  // 更新虚拟键盘UI状态
@@ -415,7 +415,7 @@
 		// 键盘松开时恢复UI状态
 		document.addEventListener('keyup', function (event) {
 			if (bleSerial.isConnected()) {
-				let key = event.key + '_up';
+				let key = event.key + '-up';
 				sendBroadcastMessage(key);  // 发送松开消息
 			}
 			updateKeyState(event.key, false);  // 恢复虚拟键盘UI状态
