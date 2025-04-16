@@ -159,6 +159,51 @@
 			box-shadow: inset 1px 1px 3px #474343, inset -1px -1px 3px #fff;
 			background-color: #e0e0e0;
 		}
+
+        .message-container {
+            position: fixed;
+            right: 10px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-end;
+            gap: 10px;  /* 增加间距 */
+            z-index: 9999;
+        }
+
+        .message {
+            background-color: #FF4D4D;  /* 默认背景颜色 */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out, fadeOut 2s ease-in forwards;
+            opacity: 1;
+            max-width: 250px;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
 	</style>
 
 </head>
@@ -336,6 +381,118 @@
 			document.getElementById("connectStatus").innerHTML = status;
 		}
 
+        function showMessage(message) {
+            // 为每个按键设置不同的颜色
+            const colorMapping = {
+                '1': '#FF4C4C',    // 红色渐变
+                '2': '#FF6A4D',    // 红橙渐变
+                '3': '#FF894D',    // 橙色渐变
+                '4': '#FFAA4D',    // 橙黄色渐变
+                '5': '#FFCA4D',    // 黄色渐变
+                '6': '#FFEA4D',    // 浅黄色渐变
+                '7': '#A8FF4D',    // 黄绿色渐变
+                '8': '#4DFF6E',    // 绿渐变
+                '9': '#4DFF8E',    // 浅绿色渐变
+                '0': '#4DFFB0',    // 青色渐变
+                'Q': '#4DFFCA',    // 浅青色渐变
+                'W': '#4DFFFF',    // 青色渐变
+                'E': '#4DA8FF',    // 天蓝渐变
+                'R': '#4D79FF',    // 蓝色渐变
+                'T': '#4D4DFF',    // 深蓝渐变
+                'Y': '#6E4DFF',    // 紫色渐变
+                'U': '#8E4DFF',    // 紫蓝渐变
+                'I': '#AF4DFF',    // 浅紫渐变
+                'O': '#FF4DD0',    // 粉色渐变
+                'P': '#FF4DA8',    // 亮粉渐变
+                'A': '#FF4D82',    // 桃红渐变
+                'S': '#FF4D56',    // 粉红渐变
+                'D': '#FF4D2A',    // 深红渐变
+                'F': '#FF5733',    // 红橙渐变
+                'G': '#FF6833',    // 鲜艳橙色渐变
+                'H': '#FF7933',    // 橙黄色渐变
+                'J': '#FF8A33',    // 黄橙渐变
+                'K': '#FF9B33',    // 橙色渐变
+                'L': '#FFAC33',    // 黄色渐变
+                'Z': '#FFBD33',    // 黄色渐变
+                'X': '#FFCE33',    // 浅黄色渐变
+                'C': '#FFD733',    // 黄绿色渐变
+                'V': '#FFEC33',    // 浅绿色渐变
+                'B': '#B0FF33',    // 青绿色渐变
+                'N': '#80FF33',    // 浅青色渐变
+                'M': '#4DFF33',    // 绿渐变
+
+                'q': '#4DFFCA',    // 浅青色渐变
+                'w': '#4DFFFF',    // 青色渐变
+                'e': '#4DA8FF',    // 天蓝渐变
+                'r': '#4D79FF',    // 蓝色渐变
+                't': '#4D4DFF',    // 深蓝渐变
+                'y': '#6E4DFF',    // 紫色渐变
+                'u': '#8E4DFF',    // 紫蓝渐变
+                'i': '#AF4DFF',    // 浅紫渐变
+                'o': '#FF4DD0',    // 粉色渐变
+                'p': '#FF4DA8',    // 亮粉渐变
+                'a': '#FF4D82',    // 桃红渐变
+                's': '#FF4D56',    // 粉红渐变
+                'd': '#FF4D2A',    // 深红渐变
+                'f': '#FF5733',    // 红橙渐变
+                'g': '#FF6833',    // 鲜艳橙色渐变
+                'h': '#FF7933',    // 橙黄色渐变
+                'j': '#FF8A33',    // 黄橙渐变
+                'k': '#FF9B33',    // 橙色渐变
+                'l': '#FFAC33',    // 黄色渐变
+                'z': '#FFBD33',    // 黄色渐变
+                'x': '#FFCE33',    // 浅黄色渐变
+                'c': '#FFD733',    // 黄绿色渐变
+                'v': '#FFEC33',    // 浅绿色渐变
+                'b': '#B0FF33',    // 青绿色渐变
+                'n': '#80FF33',    // 浅青色渐变
+                'm': '#4DFF33',    // 绿渐变
+                ' ': '#FF6E6E',    // 红色渐变
+                'Backspace': '#FF8A8A', // 淡红渐变
+                'Enter': '#FFB2B2',   // 浅粉渐变
+                'Shift': '#4DFF4D',   // 绿色渐变
+                'CapsLock': '#4DFF73', // 浅绿色渐变
+                'Control': '#4DFF99',  // 浅青色渐变
+                'Alt': '#4DFFBF',      // 浅蓝渐变
+                'ArrowUp': '#4D4DFF',  // 蓝色渐变
+                'ArrowDown': '#6A4DFF', // 紫色渐变
+                'ArrowLeft': '#8A4DFF', // 紫蓝渐变
+                'ArrowRight': '#AF4DFF' // 浅紫渐变
+            };
+            
+            // 获取当前按键的颜色
+            const keyColor = colorMapping[message] || '#708090';  // 默认颜色是灰色
+
+            // 创建消息容器（如果没有创建过）
+            let container = document.querySelector('.message-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.classList.add('message-container');
+                document.body.appendChild(container);
+            }
+
+            // 创建消息提示框
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.textContent = message;
+            messageDiv.style.backgroundColor = keyColor; // 设置背景色为按键的渐变颜色
+
+            // 添加到消息容器
+            container.appendChild(messageDiv);
+
+            // 设置动画
+            setTimeout(() => {
+                messageDiv.style.opacity = 0; // 让消息渐隐
+            }, 400);
+
+            // 在动画结束后移除消息框
+            setTimeout(() => {
+                container.removeChild(messageDiv);
+            }, 650);
+        }
+
+
+
 		function sendBroadcastMessage(message) {
 			let cmdBytes = new TextEncoder().encode(message);
 			let len = cmdBytes.length + 1;
@@ -343,7 +500,12 @@
 			broadcastMsg.set([0xFB, 0x1B, 0, (len & 255), (len >> 8) & 255]);  // Header for broadcast message
 			broadcastMsg.set(cmdBytes, 5);  // 字符串内容
 			broadcastMsg.set([0xFE], len + 4);  // 结束符
-			bleSerial.write_data(broadcastMsg);  // 发送消息
+			
+            if (bleSerial.isConnected()) {
+                bleSerial.write_data(broadcastMsg);  // 发送消息
+            }
+             // 显示消息提示框
+            showMessage(message);
 		}
 
 		// 修改 updateKeyState 函数以匹配更广泛的按键
@@ -405,21 +567,45 @@
 
 		// 键盘按下时触发虚拟按键UI变化
 		document.addEventListener('keydown', function (event) {
-			if (bleSerial.isConnected()) {
-				let key = event.key;
-				sendBroadcastMessage(key);  // 发送按键消息
-			}
+            let key = event.key;
+            sendBroadcastMessage(key);  // 发送按键消息
 			updateKeyState(event.key, true);  // 更新虚拟键盘UI状态
 		});
 
 		// 键盘松开时恢复UI状态
 		document.addEventListener('keyup', function (event) {
-			if (bleSerial.isConnected()) {
-				let key = event.key + '-up';
-				sendBroadcastMessage(key);  // 发送松开消息
-			}
+            let key = event.key + '-up';
+            sendBroadcastMessage(key);  // 发送松开消息
 			updateKeyState(event.key, false);  // 恢复虚拟键盘UI状态
 		});
+
+		// 鼠标点击虚拟键盘时触发按键按下和松开
+        const buttons = document.querySelectorAll('button[data-key]');
+        buttons.forEach(button => {
+            button.addEventListener('mousedown', function() {
+                let key = this.getAttribute('data-key');
+
+                // 如果是字母按键，将其强制转换为小写
+                if (key.match(/[a-zA-Z]/)) {
+                    key = key.toLowerCase();
+                }
+
+                sendBroadcastMessage(key);  // 发送按键消息
+                updateKeyState(key, true);  // 更新虚拟键盘UI状态
+            });
+
+            button.addEventListener('mouseup', function() {
+                let key = this.getAttribute('data-key');
+
+                // 如果是字母按键，将其强制转换为小写
+                if (key.match(/[a-zA-Z]/)) {
+                    key = key.toLowerCase();
+                }
+
+                sendBroadcastMessage(key + '-up');  // 发送松开消息
+                updateKeyState(key, false);  // 恢复虚拟键盘UI状态
+            });
+        });
 
 		const bleSerial = new BLESerial();
 		setInterval(updateConnectStatus, 500);
