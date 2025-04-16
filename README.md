@@ -2,9 +2,9 @@
 
 This is the repository that contains source code for the [CoCube website](https://robot-dreamer.github.io/CoCube).
 
-# Code
+# Wiki
 
-Coming Soon!
+[CoCube Wiki](http://wiki.cocube.fun/en)
 
 # Website License
 
